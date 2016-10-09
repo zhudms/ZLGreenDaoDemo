@@ -21,12 +21,12 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        DBRootBeanDao.createTable(db, ifNotExists);
+        MedicalInspectBDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        DBRootBeanDao.dropTable(db, ifExists);
+        MedicalInspectBDao.dropTable(db, ifExists);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(DBRootBeanDao.class);
+        registerDaoClass(MedicalInspectBDao.class);
     }
 
     public DaoSession newSession() {
