@@ -6,7 +6,7 @@ import com.hh.greendao.gen.DaoMaster;
 import com.hh.greendao.gen.DaoSession;
 
 public class Session {
-    public static final java.lang.String DB_NAME = "zldb";
+    private static final java.lang.String DB_NAME = "zldb";
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
 
