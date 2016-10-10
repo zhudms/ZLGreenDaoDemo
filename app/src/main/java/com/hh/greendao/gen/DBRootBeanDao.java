@@ -15,7 +15,7 @@ import com.zl.zxylgreendaodemo.bean.DBRootBean;
 /** 
  * DAO for table "DBROOT_BEAN".
 */
-public class DBRootBeanDao extends AbstractDao<DBRootBean, Integer> {
+public class DBRootBeanDao extends AbstractDao<DBRootBean, Long> {
 
     public static final String TABLENAME = "DBROOT_BEAN";
 
@@ -24,10 +24,11 @@ public class DBRootBeanDao extends AbstractDao<DBRootBean, Integer> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property SingleKey = new Property(0, int.class, "singleKey", true, "SINGLE_KEY");
-        public final static Property InsertTime = new Property(1, String.class, "insertTime", false, "INSERT_TIME");
-        public final static Property ParentTag = new Property(2, String.class, "parentTag", false, "PARENT_TAG");
-        public final static Property PageNo = new Property(3, int.class, "pageNo", false, "PAGE_NO");
+        public final static Property _id = new Property(0, Long.class, "_id", true, "_id");
+        public final static Property SingleKey = new Property(1, String.class, "singleKey", false, "SINGLE_KEY");
+        public final static Property InsertTime = new Property(2, String.class, "insertTime", false, "INSERT_TIME");
+        public final static Property ParentTag = new Property(3, String.class, "parentTag", false, "PARENT_TAG");
+        public final static Property PageNo = new Property(4, int.class, "pageNo", false, "PAGE_NO");
     }
 
 
@@ -43,10 +44,11 @@ public class DBRootBeanDao extends AbstractDao<DBRootBean, Integer> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"DBROOT_BEAN\" (" + //
-                "\"SINGLE_KEY\" INTEGER PRIMARY KEY NOT NULL ," + // 0: singleKey
-                "\"INSERT_TIME\" TEXT," + // 1: insertTime
-                "\"PARENT_TAG\" TEXT," + // 2: parentTag
-                "\"PAGE_NO\" INTEGER NOT NULL );"); // 3: pageNo
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: _id
+                "\"SINGLE_KEY\" TEXT," + // 1: singleKey
+                "\"INSERT_TIME\" TEXT," + // 2: insertTime
+                "\"PARENT_TAG\" TEXT," + // 3: parentTag
+                "\"PAGE_NO\" INTEGER NOT NULL );"); // 4: pageNo
     }
 
     /** Drops the underlying database table. */
@@ -58,70 +60,91 @@ public class DBRootBeanDao extends AbstractDao<DBRootBean, Integer> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, DBRootBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getSingleKey());
+ 
+        Long _id = entity.get_id();
+        if (_id != null) {
+            stmt.bindLong(1, _id);
+        }
+ 
+        String singleKey = entity.getSingleKey();
+        if (singleKey != null) {
+            stmt.bindString(2, singleKey);
+        }
  
         String insertTime = entity.getInsertTime();
         if (insertTime != null) {
-            stmt.bindString(2, insertTime);
+            stmt.bindString(3, insertTime);
         }
  
         String parentTag = entity.getParentTag();
         if (parentTag != null) {
-            stmt.bindString(3, parentTag);
+            stmt.bindString(4, parentTag);
         }
-        stmt.bindLong(4, entity.getPageNo());
+        stmt.bindLong(5, entity.getPageNo());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, DBRootBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getSingleKey());
+ 
+        Long _id = entity.get_id();
+        if (_id != null) {
+            stmt.bindLong(1, _id);
+        }
+ 
+        String singleKey = entity.getSingleKey();
+        if (singleKey != null) {
+            stmt.bindString(2, singleKey);
+        }
  
         String insertTime = entity.getInsertTime();
         if (insertTime != null) {
-            stmt.bindString(2, insertTime);
+            stmt.bindString(3, insertTime);
         }
  
         String parentTag = entity.getParentTag();
         if (parentTag != null) {
-            stmt.bindString(3, parentTag);
+            stmt.bindString(4, parentTag);
         }
-        stmt.bindLong(4, entity.getPageNo());
+        stmt.bindLong(5, entity.getPageNo());
     }
 
     @Override
-    public Integer readKey(Cursor cursor, int offset) {
-        return cursor.getInt(offset + 0);
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public DBRootBean readEntity(Cursor cursor, int offset) {
         DBRootBean entity = new DBRootBean( //
-            cursor.getInt(offset + 0), // singleKey
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // insertTime
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // parentTag
-            cursor.getInt(offset + 3) // pageNo
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // _id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // singleKey
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // insertTime
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // parentTag
+            cursor.getInt(offset + 4) // pageNo
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, DBRootBean entity, int offset) {
-        entity.setSingleKey(cursor.getInt(offset + 0));
-        entity.setInsertTime(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setParentTag(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setPageNo(cursor.getInt(offset + 3));
+        entity.set_id(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setSingleKey(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setInsertTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setParentTag(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPageNo(cursor.getInt(offset + 4));
      }
     
     @Override
-    protected final Integer updateKeyAfterInsert(DBRootBean entity, long rowId) {
-        return entity.getSingleKey();
+    protected final Long updateKeyAfterInsert(DBRootBean entity, long rowId) {
+        entity.set_id(rowId);
+        return rowId;
     }
     
     @Override
-    public Integer getKey(DBRootBean entity) {
+    public Long getKey(DBRootBean entity) {
         if(entity != null) {
-            return entity.getSingleKey();
+            return entity.get_id();
         } else {
             return null;
         }
@@ -129,7 +152,7 @@ public class DBRootBeanDao extends AbstractDao<DBRootBean, Integer> {
 
     @Override
     public boolean hasKey(DBRootBean entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.get_id() != null;
     }
 
     @Override

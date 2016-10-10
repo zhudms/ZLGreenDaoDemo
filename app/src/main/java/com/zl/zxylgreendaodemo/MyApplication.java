@@ -2,10 +2,8 @@ package com.zl.zxylgreendaodemo;
 
 import android.app.Application;
 
-import com.hh.greendao.gen.DaoMaster;
-import com.hh.greendao.gen.DaoSession;
-
-import org.greenrobot.greendao.database.Database;
+import com.zl.zxylgreendaodemo.bean.DBRootBean;
+import com.zl.zxylgreendaodemo.daoutils.DaoUtils;
 
 /**
  * Created by TANG on 2016/10/9.
@@ -14,16 +12,13 @@ import org.greenrobot.greendao.database.Database;
 
 public class MyApplication extends Application {
 
-    private static DaoSession daoSession;
 
+    public static DaoUtils<DBRootBean> daoUtils;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Session.init(MyApplication.this);
-
-        daoSession =Session.getInstance(MyApplication.this);
-
+//        daoUtils = new DaoUtils<>(this);
 
     }
 }

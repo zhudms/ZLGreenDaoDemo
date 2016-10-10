@@ -27,7 +27,7 @@ android {
 }
 apply plugin: 'org.greenrobot.greendao'
 greendao {
-    schemaVersion 1
+    schemaVersion 5
 //自动生成的文件所在目录
     daoPackage 'com.hh.greendao.gen'
     targetGenDir 'src/main/java'
