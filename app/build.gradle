@@ -25,13 +25,15 @@ android {
     }
 
 }
+
 apply plugin: 'org.greenrobot.greendao'
 greendao {
-    schemaVersion 5
+    schemaVersion 1
 //自动生成的文件所在目录
     daoPackage 'com.hh.greendao.gen'
     targetGenDir 'src/main/java'
 }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

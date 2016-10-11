@@ -45,6 +45,13 @@ public class DBRootBean<T> {
         this.insertTime = insertTime;
         this.parentTag = parentTag;
         this.pageNo = pageNo;
+    }    public DBRootBean( String singleKey, String insertTime, String parentTag,
+            int pageNo) {
+
+        this.singleKey = singleKey;
+        this.insertTime = insertTime;
+        this.parentTag = parentTag;
+        this.pageNo = pageNo;
     }
 
 

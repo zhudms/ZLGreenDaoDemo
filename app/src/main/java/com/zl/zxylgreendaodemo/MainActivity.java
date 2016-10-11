@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public void insert() {
         for (int i = 0, len = 20; i < len; i++) {
 
-            DBRootBean user = new DBRootBean(Long.valueOf(5 * i), i + "", "see555", "as2", i);
+            DBRootBean user = new DBRootBean(i + "", "see555", "as2", i);
             boolean flag = new DaoUtils<>(this).insertOrReplaceEntity(user);
             Toast.makeText(this, "" + flag, Toast.LENGTH_SHORT).show();
         }
