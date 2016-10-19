@@ -1,3 +1,6 @@
 GreenDao 3.X之注解
 http://blog.csdn.net/io_field/article/details/52213972
 http://www.3fwork.com/b600/004333MYM028069/
+
+
+bean 里 get方法里不能引用其他方法，继承了可序列化接口需要添加版本
